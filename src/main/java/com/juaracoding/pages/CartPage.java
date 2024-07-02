@@ -18,8 +18,15 @@ public class CartPage {
     @FindBy(xpath = "//div[@class='inventory_item_name']")
     private WebElement txtItemName;
 
+    @FindBy(xpath = "//button[@id='checkout']")
+    private WebElement btnCheckout;
+
     public String getTxtItemName(){
         return txtItemName.getText();
+    }
+
+    public void setBtnCheckout(){
+        btnCheckout.click();
     }
 
 
