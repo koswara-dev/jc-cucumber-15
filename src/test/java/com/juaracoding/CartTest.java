@@ -5,6 +5,7 @@ import com.juaracoding.pages.CartPage;
 import com.juaracoding.pages.HomePage;
 import com.juaracoding.pages.LoginPage;
 import io.cucumber.java.AfterAll;
+import io.cucumber.java.AfterStep;
 import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -14,24 +15,13 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 public class CartTest {
-    static private WebDriver driver;
-    static private LoginPage loginPage;
-    static private HomePage homePage;
-    static private CartPage cartPage;
+    private WebDriver driver;
+    private LoginPage loginPage = new LoginPage();
+    private HomePage homePage = new HomePage();
+    private CartPage cartPage = new CartPage();
 
-    @BeforeAll
-    public static void setUp(){
-        DriverSingleton.getInstance("chrome");
-        driver = DriverSingleton.getDriver();
-        loginPage = new LoginPage();
-        homePage = new HomePage();
-        cartPage = new CartPage();
-    }
-
-    @AfterAll
-    public static void finish(){
-        DriverSingleton.delay(3);
-        DriverSingleton.closeObjectInstance();
+    public CartTest(){
+        driver = Hooks.driver;
     }
 
     @Given("I am logged in to the application")

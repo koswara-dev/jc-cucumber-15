@@ -3,6 +3,7 @@ package com.juaracoding;
 import com.juaracoding.drivers.DriverSingleton;
 import com.juaracoding.pages.HomePage;
 import com.juaracoding.pages.LoginPage;
+import com.juaracoding.utils.Constant;
 import io.cucumber.java.AfterAll;
 import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.And;
@@ -14,29 +15,19 @@ import org.testng.Assert;
 
 public class LoginTest {
 
-    static private WebDriver driver;
+    private WebDriver driver;
 
-    static private LoginPage loginPage;
+    private LoginPage loginPage = new LoginPage();
 
-    static private HomePage homePage;
+    private HomePage homePage = new HomePage();
 
-    @BeforeAll
-    public static void setUp(){
-        DriverSingleton.getInstance("chrome");
-        driver = DriverSingleton.getDriver();
-        loginPage = new LoginPage();
-        homePage = new HomePage();
-    }
-
-    @AfterAll
-    public static void finish(){
-        DriverSingleton.delay(3);
-        DriverSingleton.closeObjectInstance();
+    public LoginTest(){
+        driver = Hooks.driver;
     }
 
     @Given("I am on the login page")
     public void i_am_on_the_login_page(){
-        driver.get("https://www.saucedemo.com");
+        driver.get(Constant.URL);
     }
 
     @When("I enter a valid username and password")
@@ -64,7 +55,7 @@ public class LoginTest {
     public void i_should_see_an_error_message(){
         Assert.assertTrue(loginPage.getTxtError().contains("Username and password do not match"));
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/");
-        Assert.assertEquals(loginPage.getAttributeLoginLogo(), "login_logo");
+        Assert.assertEquals(loginPage.getAttributeLoginLogo(), "login_log");
     }
 
 
